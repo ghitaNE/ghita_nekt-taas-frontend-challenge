@@ -27,3 +27,14 @@ export async function fetchUserDataService(token: string): Promise<any> {
     throw error
   }
 }
+export async function fetchRepositoriesService(token: string) {
+  try {
+    const octokit = new Octokit({ auth: token })
+    const response = await octokit.request(`GET ${import.meta.env.VITE_USER_REPOS_PATH}`, {
+      headers: { 'X-GitHub-Api-Version': '2022-11-28' }
+    })
+    return response.data
+  } catch (error) {
+    console.error('Error fetching repositories:', error)
+  }
+}
