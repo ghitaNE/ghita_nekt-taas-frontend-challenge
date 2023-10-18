@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 mx-6 border-current">
+  <div class="p-4 mx-6 border-current" @click="fetchBranches">
     <div class="flex items-center mb-2">
       <h2 class="text-lg font-bold mb-2 text-sky-600">{{ repository.name }}</h2>
       <span
@@ -13,8 +13,11 @@
 </template>
 <script setup lang="ts">
 import { defineProps, ref } from 'vue'
+import { useSelectedRepoStore } from '@/stores'
 import { formatCreatedAt } from '@/utils/date'
 import { PRIVATE_BADGE } from '@/utils/constants'
+
+const selectedRepoStore = useSelectedRepoStore()
 const formattedDate = ref('')
 
 const props = defineProps({
@@ -25,4 +28,8 @@ const props = defineProps({
 })
 const emits = defineEmits()
 formattedDate.value = formatCreatedAt(props.repository.created_at)
+const fetchBranches = () => {
+  selectedRepoStore.setSelectedRepo(props.repository)
+  emits('cardClick', props.repository)
+}
 </script>
