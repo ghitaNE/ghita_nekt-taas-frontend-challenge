@@ -13,3 +13,16 @@ export const useAccessTokenStore = defineStore('accessToken', {
     }
   }
 })
+export const useSelectedRepoStore = defineStore('selectedRepo', {
+  state: () => ({
+    selectedRepo: null as any | null
+  }),
+  actions: {
+    setSelectedRepo(owner: any) {
+      this.selectedRepo = owner
+    },
+    clearSelectedRepo() {
+      this.selectedRepo = null
+    }
+  }
+})
